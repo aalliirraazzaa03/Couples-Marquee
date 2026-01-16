@@ -4,6 +4,7 @@ from django.db.models import Sum, Count
 from rest_framework import status, viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework.permissions import AllowAny
 
 from django.conf import settings
 import os
@@ -147,6 +148,7 @@ class CreateImageFolderView(APIView):
 
 
 class DecorFoldersWithImagesView(APIView):
+    permission_classes = [AllowAny]
     def get(self, request):
         base_path = os.path.join(settings.MEDIA_ROOT, 'decor_images')
         if not os.path.exists(base_path):

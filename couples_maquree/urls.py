@@ -18,10 +18,27 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView,
+    TokenRefreshView,
+)
 # urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+
+    path('api/auth/login/', TokenObtainPairView.as_view(), name='token_login'),
+    path('api/auth/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
+
+    # password reset
+    # path('api/auth/password-reset/', auth_views.PasswordResetView.as_view(), name='password_reset'),
+    # path(
+    #     'api/auth/password-reset-confirm/<uidb64>/<token>/',
+    #     auth_views.PasswordResetConfirmView.as_view(),
+    #     name='password_reset_confirm'
+    # ),
+
+
 
     # Common base for all APIs
     path('api/events/', include('Events.urls')),
@@ -29,3 +46,6 @@ urlpatterns = [
     path('api/payments/', include('Payments.urls')),
 ]
 
+# Serve media files in development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

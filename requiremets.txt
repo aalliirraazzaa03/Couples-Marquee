@@ -8,3 +8,4 @@ drf-yasg==1.21.7
 django-filter==24.2
 django-debug-toolbar==4.3.0
 Pillow
+djangorestframework-simplejwt==5.3.1
